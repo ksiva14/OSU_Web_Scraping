@@ -8,6 +8,10 @@ require_relative 'graph'
 # gem install gruff
 require 'gruff'
 
+# add https://dps.osu.edu/news?tag%5B15%5D=15&page=1
+# change 1 to i????? to iterate throught the pages.
+
+page_link = '&page='
 mech = Mechanize.new
 page = mech.get 'https://dps.osu.edu/news?tag%5B15%5D=15'
 titles = page.css("div[class='field__items']")
