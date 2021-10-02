@@ -13,6 +13,7 @@ class Graph
     @scatter_graph = Gruff::Scatter.new
     get_data_points(graph, scrape)
     set_graph_properties
+    set_axis_style scrape
     @scatter_graph.data('crime time', @x, @y)
   end
 
@@ -61,12 +62,10 @@ class Graph
     # Points style
     @scatter_graph.circle_radius = 3
     @scatter_graph.stroke_width = 0.01
-
-    set_axis_style
   end
 
   # the look fo the axis
-  def set_axis_style
+  def set_axis_style(scrape)
     # 24:00 format for y-axis
     @scatter_graph.y_axis_increment = 1
     @scatter_graph.y_axis_label_format = lambda do |value|
@@ -79,7 +78,7 @@ class Graph
     # year for x-axis
     @scatter_graph.x_axis_increment = 1
     @scatter_graph.x_axis_label_format = lambda do |value|
-      format('%d', value)
+      format('%d', scrape.years[value - 1])
     end
   end
 

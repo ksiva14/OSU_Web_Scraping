@@ -11,6 +11,7 @@ class Scraper
     @all_notices = []
     # range of years for the data
     @years = []
+    # hash of year and crime count
     @crime_per_year = {}
   end
 
