@@ -4,6 +4,7 @@ require_relative 'notice'
 require_relative 'graph'
 require_relative 'page'
 require_relative 'scraper'
+require_relative 'htmltable'
 
 # to install
 # sudo apt-get install libmagickwand-dev
@@ -11,6 +12,16 @@ require_relative 'scraper'
 require 'gruff'
 
 link = 'https://dps.osu.edu/news?tag%5B15%5D=15'
+
+f = File.new("./table.txt", "w")
+html = Htmltable.new
+#output html header to file
+html.create_header f
+#loop to output elements to table
+html.output_element f
+#output html footer to file
+html.create_footer f
+
 
 scrape = Scraper.new
 # mechanize first page to start retriving data from website
@@ -25,3 +36,7 @@ crime_time_graph = Graph.new
 crime_time_graph.create_scatterplot scrape.page_array, crime_time_graph
 crime_time_graph.scatter_graph.write('crime_time.png')
 puts 'Graph has been created.'
+
+
+
+f.close

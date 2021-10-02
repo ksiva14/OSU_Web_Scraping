@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang ="en"> <head> <title>
+Crime around OSU
+</title> </head>
+<body> <h1> Crime around OSU </h1><table border="1">
+<tr>
+<th>Date</th>
+<th>Location</th>
+<th>Description</th>
+</tr>
+</table>
+</body> </html>
