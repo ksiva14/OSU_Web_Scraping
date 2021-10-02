@@ -22,7 +22,6 @@ scrape.create_link(link)
 # Graph for displaying crime time - creates a png of the graph
 puts 'Creating Graph...'
 crime_time_graph = Graph.new
-crime_time_graph.get_data_points scrape.page_array, crime_time_graph
-crime_time_graph.scatter_graph.data('crime time', crime_time_graph.x, crime_time_graph.y)
+crime_time_graph.create_scatterplot scrape.page_array, crime_time_graph
 crime_time_graph.scatter_graph.write('crime_time.png')
 puts 'Graph has been created.'
