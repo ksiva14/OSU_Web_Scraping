@@ -35,4 +35,4 @@ f = File.new("./table.html", "w")
 html = Htmltable.new
 
 #output html page after scraping data and creating graphs
-html.create_page f
+html.create_page f, scrape.all_notices

@@ -3,45 +3,45 @@ require_relative "scraper"
 class Htmltable
     
     #creates header for html table
-    def create_page (f)
-        f.write "<!DOCTYPE html>"
-        f.write "<html lang =\"en\"> "
-        f.write "  <head>"
-        f.write "    <title>Neighborhood Crime Around OSU</title>"
-        f.write "    <meta charset=\"utf-8\" />"
-        f.write "  </head>"
-        f.write "  <body>"
-        create_table f
+    def create_page (f, notices)
+        f.puts "<!DOCTYPE html>"
+        f.puts "<html lang =\"en\"> "
+        f.puts "  <head>"
+        f.puts "    <title>Neighborhood Crime Around OSU</title>"
+        f.puts "    <meta charset=\"utf-8\" />"
+        f.puts "  </head>"
+        f.puts "  <body>"
+        create_table f, notices
         create_footer f
     end
     #Create Table
-    def create_table (f)
-        f.write "    <table border=\"1\">"
-        f.write "    <caption>Important Neighborhood Crime Information Around OSU</caption>"
-        f.write "    <tr>"
-        f.write "      <th>Date<th>"
-        f.write "      <th>Location<th>"
-        f.write "      <th>Time<th>"
-        f.write "      <th>Additional Information<th>"
-        f.write "    </tr>"
-        output_rows f
+    def create_table (f, notices)
+        f.puts "    <table border=\"1\">"
+        f.puts "    <caption><b>Important Neighborhood Crime Information Around OSU</b></caption>"
+        f.puts "    <tr>"
+        f.puts "      <th>Date</th>"
+        f.puts "      <th>Location</th>"
+        f.puts "      <th>Time</th>"
+        f.puts "      <th>Additional Information</th>"
+        f.puts "    </tr>"
+        output_rows f, notices
     end
     #creates footer for html table
     def create_footer (f)
-        f.write "    </table>"
-        f.write "  </body>"
-        f.write "</html>"
+        f.puts "    </table>"
+        f.puts "  </body>"
+        f.puts "</html>"
         f.close
     end
-    #write all rows for table with information
-    def output_rows (f)
-        @all_notices.each do |notice|
-                f.write "    <tr>"
-                f.write "      <td>#{notice.date}</td>"
-                f.write "      <td>#{notice.location}</td>"
-                f.write "      <td>#{notice.time}</td>"
-                f.write "      <td>#{notice.description}</td>"
-                f.write "    </tr>"
+    # puts all rows for table with information
+    def output_rows (f, notices)
+        notices.each do |notice|
+                f.puts "    <tr>"
+                f.puts "      <td>#{notice.date}</td>"
+                f.puts "      <td>#{notice.location.join ' '}</td>"
+                f.puts "      <td>#{notice.time}</td>"
+                f.puts "      <td>#{notice.description}</td>"
+                f.puts "    </tr>"
         end
     end
 end
