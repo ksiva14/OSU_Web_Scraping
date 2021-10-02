@@ -1,6 +1,6 @@
 # class for notice object
 class Notice
-  attr_reader :time, :date, :location, :description
+  attr_reader :time, :date, :location, :description, :year
 
   def initialize(link)
     notice_page = Mechanize.new.get link
@@ -12,8 +12,10 @@ class Notice
     end
 
     @date = @description[%r{\d+/\d+/\d+}]
+    retrieve_year
     @time = @description[/\d+(:\d+)* (a|p)\.m\./]
     @location = @description.scan(/([0-9A-Za-z]+) (Avenue|St |Ave|Street|Court|Square|Place)/)
+   
 
     # puts '*****'
     # puts @date
@@ -21,5 +23,14 @@ class Notice
     # puts @location[0]
     # puts @location[1]
     # puts '*****'
+  end
+
+  # retrieve year from the date
+  def retrieve_year
+    temp = @date.to_s.split '/'
+    # @year = 0 if temp[2] is blank/no date
+    @year = temp[2].to_i
+    # prevent addition of 2000 if 0
+    @year += 2000 if !@year.zero? & (@year < 2000)
   end
 end
