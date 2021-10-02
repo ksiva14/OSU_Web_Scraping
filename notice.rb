@@ -15,11 +15,11 @@ class Notice
     @time = @description[/\d+(:\d+)* (a|p)\.m\./]
     @location = @description.scan(/([0-9A-Za-z]+) (Avenue|St |Ave|Street|Court|Square|Place)/)
 
-    puts '*****'
-    puts @date
+    # puts '*****'
+    # puts @date
     # puts @time
     # puts @location[0]
     # puts @location[1]
-    puts '*****'
+    # puts '*****'
   end
 end

@@ -19,13 +19,10 @@ scrape.page_array << Page.new(link)
 scrape.get_num_of_pages(scrape.page_array[0].page)
 scrape.create_link(link)
 
-notices = scrape.page_array[0].notices
-# Graph for displaying crime time
-# creates a png of the graph
+# Graph for displaying crime time - creates a png of the graph
+puts 'Creating Graph...'
 crime_time_graph = Graph.new
-notices.each_index do |i|
-  crime_time_graph.y << crime_time_graph.set_time(notices[i].time)
-end
-crime_time_graph.x = (1..crime_time_graph.y.length).map { 1 }
+crime_time_graph.get_data_points scrape.page_array, crime_time_graph
 crime_time_graph.scatter_graph.data('crime time', crime_time_graph.x, crime_time_graph.y)
 crime_time_graph.scatter_graph.write('crime_time.png')
+puts 'Graph has been created.'

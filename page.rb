@@ -20,7 +20,7 @@ class Page
     end
   end
 
-  # creates the notices to retrieve data from
+  # gets all the notices from the page to retrieve data from
   def create_notice
     @notice_links.each do |link|
       @notices << (Notice.new link)

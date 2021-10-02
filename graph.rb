@@ -1,3 +1,6 @@
+require_relative 'notice'
+require_relative 'page'
+
 class Graph
   attr_accessor :x, :y, :scatter_graph
 
@@ -10,8 +13,19 @@ class Graph
 
   # get the time in 24 hour clock
   def set_time(time)
+    time_holder = []
+    if time.to_s.include? ':'
+      # eg: 11:54 am
+      time_holder = time.to_s.split(':')
+      have_minute = true
+    else
+      # eg: 11 am
+      time_holder = time.to_s.split(' ')
+      have_minute = false
+    end
+
     # seperate the hour
-    time_holder = time.to_s.split ':'
+    hour = 12
     if time.to_s.include? 'p.m.'
       hour = time_holder[0].to_i + 12 unless time_holder[0].to_i == 12
     else
@@ -19,8 +33,11 @@ class Graph
     end
 
     # seperate the minute
-    time_holder = time_holder[1].to_s.split ' '
-    minute = time_holder[0].to_i / 60.0
+    minute = 0.0
+    if have_minute
+      time_holder = time_holder[1].to_s.split ' '
+      minute = time_holder[0].to_i / 60.0
+    end
 
     # hour.minute
     hour + minute
@@ -55,7 +72,17 @@ class Graph
       end
     end
   end
-  
+
+  # sets the x & y for the graph
+  def get_data_points(page_array, graph)
+    page_array.each do |page|
+      page.notices.each do |notice|
+        # checks if time is string with all white spaces
+        @y << graph.set_time(notice.time) unless notice.time.to_s.strip.empty?
+      end
+    end
+    @x = (1..@y.length).map { 1 }
+  end
 end
 
 # DELETE EVERYTHING BELOW LATER
