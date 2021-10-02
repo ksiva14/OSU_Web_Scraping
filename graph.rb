@@ -9,9 +9,9 @@ class Graph
     @y = []
   end
 
-  def create_scatterplot(page_array, graph)
+  def create_scatterplot(graph, scrape)
     @scatter_graph = Gruff::Scatter.new
-    get_data_points(page_array, graph)
+    get_data_points(graph, scrape)
     set_graph_properties
     @scatter_graph.data('crime time', @x, @y)
   end
@@ -84,18 +84,21 @@ class Graph
   end
 
   # sets the x & y for the graph
-  def get_data_points(page_array, graph)
-    @year = []
-    page_array.each do |page|
-      page.notices.each do |notice|
-        # checks if time is string with all white spaces
-        @y << graph.set_time(notice.time) unless notice.time.to_s.strip.empty?
-        # does not add the same year
-        @year << notice.year if (notice.year != 0) & !(@year.include? notice.year)
-      end
+  def get_data_points(graph, scrape)
+    scrape.all_notices.each do |notice|
+      # checks if time is string with all white spaces
+      # checks if there is a date
+      @y << graph.set_time(notice.time) if !notice.date.nil? && !notice.time.nil?
     end
-    @year = @year.sort
-    @x = (1..@y.length).map { rand(3) }
+    # let the oldest data be at front
+    @y.reverse!
+
+    # creates a range of x-value with an incremenet of 1
+    value = 1
+    scrape.crime_per_year.each_value do |count|
+      count.times { @x << value }
+      value += 1
+    end
   end
 end
 
