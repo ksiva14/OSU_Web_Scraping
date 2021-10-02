@@ -9,10 +9,11 @@ class Graph
     @y = []
   end
 
-  def create_scatterplot(page_array, graph)
+  def create_scatterplot(graph, scrape)
     @scatter_graph = Gruff::Scatter.new
-    get_data_points(page_array, graph)
+    get_data_points(graph, scrape)
     set_graph_properties
+    set_axis_style scrape
     @scatter_graph.data('crime time', @x, @y)
   end
 
@@ -59,14 +60,15 @@ class Graph
     }
 
     # Points style
-    @scatter_graph.circle_radius = 3
+    @scatter_graph.circle_radius = 5
     @scatter_graph.stroke_width = 0.01
 
-    set_axis_style
+    # add some space to the right of graph in .png
+    @scatter_graph.right_margin = 50
   end
 
-  # the look fo the axis
-  def set_axis_style
+  # the look for the axis
+  def set_axis_style(scrape)
     # 24:00 format for y-axis
     @scatter_graph.y_axis_increment = 1
     @scatter_graph.y_axis_label_format = lambda do |value|
@@ -76,26 +78,30 @@ class Graph
         format('%d:00', value)
       end
     end
-    # year for x-axis
+    # year as x-axis labels
     @scatter_graph.x_axis_increment = 1
+
     @scatter_graph.x_axis_label_format = lambda do |value|
-      format('%d', value)
+      format('%d', scrape.years[value - 1])
     end
   end
 
   # sets the x & y for the graph
-  def get_data_points(page_array, graph)
-    @year = []
-    page_array.each do |page|
-      page.notices.each do |notice|
-        # checks if time is string with all white spaces
-        @y << graph.set_time(notice.time) unless notice.time.to_s.strip.empty?
-        # does not add the same year
-        @year << notice.year if (notice.year != 0) & !(@year.include? notice.year)
-      end
+  def get_data_points(graph, scrape)
+    scrape.all_notices.each do |notice|
+      # checks if time is string with all white spaces
+      # checks if there is a date
+      @y << graph.set_time(notice.time) if !notice.date.nil? && !notice.time.nil?
     end
-    @year = @year.sort
-    @x = (1..@y.length).map { rand(3) }
+    # let the oldest data be at front
+    @y.reverse!
+
+    # creates a range of x-value with an incremenet of 1
+    value = 1
+    scrape.crime_per_year.each_value do |count|
+      count.times { @x << value }
+      value += 1
+    end
   end
 end
 
