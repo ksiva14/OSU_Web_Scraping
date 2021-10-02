@@ -47,14 +47,15 @@ class Graph
   def set_axis_style
     # 24:00 format for y-axis
     @scatter_graph.y_axis_increment = 1
-        @scatter_graph.y_axis_label_format = lambda do |value|
-          if value < 10
-            format('0%d:00', value)
-          else
-            format('%d:00', value)
-          end
-        end
+    @scatter_graph.y_axis_label_format = lambda do |value|
+      if value < 10
+        format('0%d:00', value)
+      else
+        format('%d:00', value)
+      end
+    end
   end
+  
 end
 
 # DELETE EVERYTHING BELOW LATER

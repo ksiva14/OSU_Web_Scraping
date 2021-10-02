@@ -1,48 +1,24 @@
-require 'mechanize'
-require 'nokogiri'
-require_relative 'notice'
-require_relative 'graph'
-require_relative 'page'
+class Scraper
+  attr_reader :number_of_pages, :page_array
 
-# to install
-# sudo apt-get install libmagickwand-dev
-# gem install gruff
-require 'gruff'
+  def initialize
+    @number_of_pages = 0
+    @page_array = []
+  end
 
-# add https://dps.osu.edu/news?tag%5B15%5D=15&page=1
-# change 1 to i????? to iterate throught the pages.
+  # counts the number of pages
+  def get_num_of_pages(page)
+    # counts the number of page buttons at bottom of page
+    @number_of_pages = page.search('li.pager__item span.element-invisible').length
+    # do not count the previous, next, first, last button
+    @number_of_pages -= 4
+  end
 
-# mech = Mechanize.new
-# page = mech.get 'https://dps.osu.edu/news?tag%5B15%5D=15'
-
-webpage = Page.new
-
-mech = Mechanize.new
-page = mech.get 'https://dps.osu.edu/news?tag%5B15%5D=15'
-webpage.get_num_of_pages(page)
-webpage.create_link
-puts webpage.link
-
-titles = page.css("div[class='field__items']")
-noticeLinks = []
-titles.each do |i|
-  if i.css('a').text.include? 'Neighborhood Safety Notice'
-    link = 'https://dps.osu.edu' + i.css('a')[0]['href']
-    noticeLinks << link
+  # get the link for each individual page
+  def create_link(first_page_link)
+    (1..@number_of_pages).each do |i|
+      # mechanize each page
+      @page_array << Page.new("#{first_page_link}&page=#{i}")
+    end
   end
 end
-
-notices = []
-noticeLinks.each do |i|
-  notices << (Notice.new i)
-end
-
-# Graph for displaying crime time
-# creates a png of the graph
-crime_time_graph = Graph.new
-notices.each_index do |i|
-  crime_time_graph.y << crime_time_graph.set_time(notices[i].time)
-end
-crime_time_graph.x = (1..crime_time_graph.y.length).map { 1 }
-crime_time_graph.scatter_graph.data('crime time', crime_time_graph.x, crime_time_graph.y)
-crime_time_graph.scatter_graph.write('crime_time.png')
