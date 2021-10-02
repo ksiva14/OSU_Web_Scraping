@@ -13,12 +13,14 @@ require 'gruff'
 link = 'https://dps.osu.edu/news?tag%5B15%5D=15'
 
 scrape = Scraper.new
+puts 'Retrieving Data...'
 # mechanize first page to start retriving data from website
 scrape.page_array << Page.new(link, scrape.all_notices)
 # create notice for each page
 scrape.get_num_of_pages(scrape.page_array[0].page)
 scrape.create_link(link)
 scrape.collect_data
+puts 'All Data Retrieved.'
 
 # Graph for displaying crime time - creates a png of the graph
 puts 'Creating Graph...'

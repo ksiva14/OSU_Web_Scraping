@@ -60,11 +60,14 @@ class Graph
     }
 
     # Points style
-    @scatter_graph.circle_radius = 3
+    @scatter_graph.circle_radius = 5
     @scatter_graph.stroke_width = 0.01
+
+    # add some space to the right of graph in .png
+    @scatter_graph.right_margin = 50
   end
 
-  # the look fo the axis
+  # the look for the axis
   def set_axis_style(scrape)
     # 24:00 format for y-axis
     @scatter_graph.y_axis_increment = 1
@@ -75,8 +78,9 @@ class Graph
         format('%d:00', value)
       end
     end
-    # year for x-axis
+    # year as x-axis labels
     @scatter_graph.x_axis_increment = 1
+
     @scatter_graph.x_axis_label_format = lambda do |value|
       format('%d', scrape.years[value - 1])
     end
