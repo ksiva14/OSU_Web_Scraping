@@ -1,14 +1,13 @@
 # class for page object
 class Page
-  attr_reader :page, :title, :notice_links, :notices
+  attr_reader :page, :title, :notice_links
 
-  def initialize(page_link)
+  def initialize(page_link, all_notices)
     @page = Mechanize.new.get page_link
     @title = @page.css("div[class='field__items']")
     @notice_links = []
     create_notice_links
-    @notices = []
-    create_notice
+    create_notice all_notices
   end
 
   # gets the links for the notices
@@ -21,9 +20,9 @@ class Page
   end
 
   # gets all the notices from the page to retrieve data from
-  def create_notice
+  def create_notice(all_notices)
     @notice_links.each do |link|
-      @notices << (Notice.new link)
+      all_notices << (Notice.new link)
     end
   end
 end
