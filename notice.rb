@@ -3,12 +3,11 @@ class Notice
   attr_reader :time, :date, :location, :description
 
   def initialize(link)
-    noticeMech = Mechanize.new
-    noticePage = noticeMech.get link
+    notice_page = Mechanize.new.get link
 
-    noticeParagraphs = noticePage.css("div[class='field__items']")[3].css('p')
+    notice_paragraphs = notice_page.css("div[class='field__items']")[3].css('p')
     @description = 'none'
-    noticeParagraphs.each do |i|
+    notice_paragraphs.each do |i|
       @description = i.text if i.text.include?('a.m.') || i.text.include?('p.m.')
     end
 
