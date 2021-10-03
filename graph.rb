@@ -60,7 +60,7 @@ class Graph
     }
 
     # Points style
-    @scatter_graph.circle_radius = 5
+    @scatter_graph.circle_radius = 4
     @scatter_graph.stroke_width = 0.01
 
     # add some space to the right of graph in .png
