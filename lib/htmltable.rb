@@ -13,8 +13,11 @@ class Htmltable
     f.puts '  </head>'
     f.puts '  <body>'
     create_table f, notices
+    f.puts '    <div class="graph-container">'
     add_image f, 'lib/graphs/crime_time.png', 'Hot Time for Crimes'
     add_image f, 'lib/graphs/num_crimes.png', 'Number of Crimes Each Year'
+    f.puts '    </div>'
+
     create_footer f
   end
 
@@ -58,6 +61,6 @@ class Htmltable
 
   # adds an image
   def add_image(f, source, alt)
-    f.puts "    <img src = #{source} alt = #{alt} width = \"800\" height = \"500\">"
+    f.puts "      <img class=\"graph\" src = #{source} alt = #{alt}>"
   end
 end
