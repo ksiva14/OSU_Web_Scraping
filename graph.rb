@@ -2,7 +2,7 @@ require_relative 'notice'
 require_relative 'page'
 
 class Graph
-  attr_accessor :x, :y, :scatter_graph
+  attr_accessor :x, :y, :scatter_graph, :bar_graph
 
   def initialize
     @x = []
@@ -15,6 +15,54 @@ class Graph
     set_graph_properties
     set_axis_style scrape
     @scatter_graph.data('crime time', @x, @y)
+  end
+
+  def create_bargraph(scrape)
+    @bar_graph = Gruff::Bar.new
+    set_bar_graph_properties
+    set_axis_style_bar_graph scrape
+    get_bar_points scrape
+    @bar_graph.write "num_crimes.png"
+  end
+
+    # the look of the graph
+  def set_bar_graph_properties
+    @bar_graph.title = 'Number of Crimes Per Year at OSU'
+    @bar_graph.hide_legend = true
+    @bar_graph.theme = {
+      colors: ['#12a702', '#aedaa9'],
+      font_color: 'black',
+      background_colors: 'white'
+    }
+    @bar_graph.spacing_factor = 0.1
+    @bar_graph.group_spacing = 20
+
+    # add some space to the right of graph in .png
+    @bar_graph.right_margin = 40
+  end
+
+  def get_bar_points(scrape)
+    scrape.crime_per_year.each_key do |year|
+      @bar_graph.data(year, scrape.crime_per_year[year], nil)
+    end
+  end
+
+  # the look for the axis
+  def set_axis_style_bar_graph(scrape)
+
+    @bar_graph.maximum_value = 40
+    @bar_graph.minimum_value = 0
+    @bar_graph.y_axis_increment = 2
+    @bar_graph.x_axis_label = "Year of Crime"
+    @bar_graph.y_axis_label = "Number of Crimes"
+
+    
+    @bar_graph.x_axis_increment = 1
+
+    @bar_graph.x_axis_label_format = lambda do |value|
+      puts "Hello #{scrape.years[value - 1]}"
+      format('%d', scrape.years[value - 1])
+    end
   end
 
   # get the time in 24 hour clock

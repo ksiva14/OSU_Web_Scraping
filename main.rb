@@ -29,7 +29,11 @@ puts 'Creating Graph...'
 crime_time_graph = Graph.new
 crime_time_graph.create_scatterplot crime_time_graph, scrape
 crime_time_graph.scatter_graph.write('crime_time.png')
+
+num_crimes_graph = Graph.new
+num_crimes_graph.create_bargraph scrape
 puts 'Graph has been created.'
+
 
 f = File.new("./table.html", "w")
 html = Htmltable.new

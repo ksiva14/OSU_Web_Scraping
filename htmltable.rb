@@ -39,12 +39,15 @@ class Htmltable
   # puts all rows for table with information
   def output_rows(f, notices)
     notices.each do |notice|
-      f.puts '    <tr>'
-      f.puts "      <td>#{notice.date}</td>"
-      f.puts "      <td>#{notice.location.join ' '}</td>"
-      f.puts "      <td>#{notice.time}</td>"
-      f.puts "      <td>#{notice.description}</td>"
-      f.puts '    </tr>'
+        #Only output crime notices information if all information is available
+        unless notice.date.nil? || (notice.location.nil? || notice.location.length == 0) || notice.time.nil? || notice.description.nil?
+            f.puts '    <tr>'
+            f.puts "      <td>#{notice.date}</td>"
+            f.puts "      <td>#{notice.location.join ' '}</td>"
+            f.puts "      <td>#{notice.time}</td>"
+            f.puts "      <td>#{notice.description}</td>"
+            f.puts '    </tr>'
+        end
     end
   end
 
