@@ -55,7 +55,7 @@ class Graph
   # the look for the axis of scatterplot
   def set_axis_style_scatterplot(scrape)
     @graph.x_axis_label = 'Year of Crime'
-    @graph.y_axis_label = 'Time of Crimes'
+    @graph.y_axis_label = 'Time of Crime'
 
     # 24:00 format for y-axis
     @graph.y_axis_increment = 1
