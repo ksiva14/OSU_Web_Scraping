@@ -2,6 +2,8 @@
 class Notice
   attr_reader :time, :date, :location, :description, :year
 
+  # Constuctor Init
+  # Parameter link: link to article
   def initialize(link)
     @description = 'none'
     notice_page = Mechanize.new.get link
@@ -13,7 +15,8 @@ class Notice
     retrieve_location
   end
 
-  # retrieve the description of notice
+  # Function to retrieve the description of notice
+  # Parameter notice_page: artcile page to have description scraped from
   def retrieve_description(notice_page)
     notice_paragraphs = notice_page.css("div[class='field__items']")[3].css('p')
     notice_paragraphs.each do |i|
@@ -21,14 +24,14 @@ class Notice
     end
   end
 
-  # retrieve the date of crime
+  # Function to retrieve the date of crime
   def retrieve_date
     @date = @description[%r{\d+/\d+/\d+}]
     # checks that the date is not empty
     @date = nil if @date.to_s.strip.empty?
   end
 
-  # retrieve year from the date
+  # Function to retrieve year from the date
   def retrieve_year
     if @date.nil?
       @year = nil
@@ -41,13 +44,13 @@ class Notice
     end
   end
 
-  # retrieve the time of crime
+  # Function to retrieve the time of crime
   def retrieve_time
     @time = @description[/\d+(:\d+)* (a|p)\.m\./]
     @time = nil if @time.to_s.strip.empty?
   end
 
-  # retrieve the location of crime
+  # Function to retrieve the location of crime
   def retrieve_location
     @location = @description.scan(/([0-9A-Za-z]+) (Avenue|St\.|St |Ave\.*|Street|Court|Square|Place)/)
 

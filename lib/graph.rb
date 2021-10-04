@@ -5,12 +5,15 @@ require_relative 'page'
 class Graph
   attr_accessor :x, :y, :graph
 
+  # Constructor Init
   def initialize
     @x = []
     @y = []
   end
 
-  # creates a scatterplot graph for crime time
+  # Function to create a scatterplot graph for crime time
+  # Parameter scrape: scraper used in main
+  # Parameter filename: name of file to write to
   def create_scatterplot(scrape, filename)
     @graph = Gruff::Scatter.new
     get_data_points(scrape)
@@ -25,7 +28,9 @@ class Graph
     @graph.write filename
   end
 
-  # creates a bargraph for number of crimes each year
+  # Function to create a bargraph for number of crimes each year
+  # Parameter scrape: scraper used in main
+  # Parameter filename: name of file to write to
   def create_bargraph(scrape, filename)
     @graph = Gruff::Bar.new
     # general style of graph
@@ -39,7 +44,8 @@ class Graph
     @graph.write filename
   end
 
-  # the look of the graph
+  # Function to set the look of the graph
+  # Parameter graph_title: stored title of the graph
   def set_graph_properties(graph_title)
     @graph.title = graph_title
     @graph.hide_legend = true
@@ -52,7 +58,8 @@ class Graph
     @graph.right_margin = 50
   end
 
-  # the look for the axis of scatterplot
+  # Function to set the look for the axis of scatterplot
+  # Parameter scrape: scraper used in main
   def set_axis_style_scatterplot(scrape)
     @graph.x_axis_label = 'Year of Crime'
     @graph.y_axis_label = 'Time of Crime'
@@ -74,7 +81,8 @@ class Graph
     end
   end
 
-  # the look for the axis of bar graph
+  # Function to set the look for the axis of bar graph
+  # Parameter scrape: scraper used in main
   def set_axis_style_bar(scrape)
     @graph.x_axis_label = 'Year of Crime'
     @graph.y_axis_label = 'Number of Crimes'
@@ -98,7 +106,8 @@ class Graph
     end
   end
 
-  # get the time in 24 hour clock
+  # Function to get the time in 24 hour clock
+  # Parameter time: time pulled from article
   def self.set_time(time)
     time_holder = []
     if time.to_s.include? ':'
@@ -130,7 +139,8 @@ class Graph
     hour + minute
   end
 
-  # sets the x & y for the graph
+  # Function to set the x & y for the graph
+  # Parameter scrape: scraper used in main
   def get_data_points(scrape)
     scrape.all_notices.each do |notice|
       # checks if time is string with all white spaces

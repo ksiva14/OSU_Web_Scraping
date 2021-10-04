@@ -1,7 +1,7 @@
 # PG3901-Project3_WebScraping
 
 ## Description
-This project is focused on scraping the OSU Department of Public Safety website (https://dps.osu.edu/news?tag%5B15%5D=15). This project gets Neighborhood Safety Notices and displays them to the user. The user has the option to input a range of dates that they want to see these safety notices from. 
+This project is focused on scraping the OSU Department of Public Safety website (https://dps.osu.edu/news?tag%5B15%5D=15). This project gets Neighborhood Safety Notices and displays them to the user. An html file is created for the user to see the date, location, time, and description of a crime that happened around OSU campus. At the bottom of the page, a graph of most common times for crimes, and a graph of the number of crimes each year, can be found. 
 
 ## Contributors
 [Zheng Ji Tan](https://github.com/Just-ZJ), [Karthick Sivasubramanian](https://github.com/ksiva14), [Tyler Frantz](https://github.com/tylerfrantz), [Justin King](https://github.com/jking3019)
@@ -21,16 +21,25 @@ sudo apt install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
 gem install nokogiri
 ```
 
+- [gruff](https://www.rubydoc.info/github/topfunky/gruff):
+```
+sudo apt-get install libmagickwand-devlibsdl2-ttf-dev
+gem install gruff
+```
+
+
 ## How to Use
-ruby Scraper.rb
+* run ruby main.rb
+* open index.html in an html viewer
  
 ## Challenges Faced
-
-TO DO
+Many challenges were faced when creating this project. Trying to not flood OSU servers with requests was a big issue to work around. Formats for how streets were listed differed among articles, making it difficult to hardcode a way to scrape this data. Learning new gems like gruff proved time consuming. 
 
 ## Future Technologies
-
-TO DO
+If we had more time, we would want to add a couple things to our project.
+ * Allow the user to input a date range to show things like past or recent crimes
+ * Allow the user to input a region of campus to see if there is a lot of crime in area they are potentially moving into
+ * Add a function to show the severity of the crime. Was someone hurt, killed, unharmed, etc.. 
 
 ## Test Cases
 Make sure you have installed

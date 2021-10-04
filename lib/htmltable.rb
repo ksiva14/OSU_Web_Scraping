@@ -2,7 +2,9 @@ require_relative 'scraper'
 
 # class for html table
 class Htmltable
-  # creates header for html table
+  # Function to create header for html table
+  # Parameter f: file to add header to
+  # Paramter notices: links to articles to pull data from
   def create_page(f, notices)
     f.puts '<!DOCTYPE html>'
     f.puts '<html lang ="en"> '
@@ -12,16 +14,19 @@ class Htmltable
     f.puts '    <link rel="stylesheet" type="text/css" href="lib/globalstyle.css" />'
     f.puts '  </head>'
     f.puts '  <body>'
+    # function call to create and add data to table
     create_table f, notices
     f.puts '    <div class="graph-container">'
     add_image f, 'lib/graphs/crime_time.png', 'Hot Time for Crimes'
     add_image f, 'lib/graphs/num_crimes.png', 'Number of Crimes Each Year'
     f.puts '    </div>'
-
+    # function call to add footer to file to close tags
     create_footer f
   end
 
-  # Create Table
+  # Function to create table
+  # Parameter f: file to add header to
+  # Paramter notices: links to articles to pull data from
   def create_table(f, notices)
     f.puts '    <h1 class="title">Important Neighborhood Crime Information Around OSU</h1>'
     f.puts '    <table border="1">'
@@ -35,14 +40,17 @@ class Htmltable
     f.puts '    </table>'
   end
 
-  # creates footer for html table
+  # Function to create footer for html table
+  # Parameter f: file to add header to
   def create_footer(f)
     f.puts '  </body>'
     f.puts '</html>'
     f.close
   end
 
-  # puts all rows for table with information
+  # Function to put all rows for table with information
+  # Parameter f: file to add header to
+  # Paramter notices: links to articles to pull data from
   def output_rows(f, notices)
     notices.each do |notice|
       # Only output crime notices information if all information is available
@@ -59,7 +67,10 @@ class Htmltable
     end
   end
 
-  # adds an image
+  # Function to add image to html
+  # Parameter f: file to add header to
+  # Parameter source: stored source of image
+  # Parameter alt: stored alt for users unable to see image
   def add_image(f, source, alt)
     f.puts "      <img class=\"graph\" src = #{source} alt = #{alt}>"
   end

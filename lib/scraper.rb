@@ -4,6 +4,7 @@ require_relative 'notice'
 class Scraper
   attr_reader :number_of_pages, :page_array, :all_notices, :years, :crime_per_year
 
+  # Contructor Init
   def initialize
     @number_of_pages = 0
     # keeps track of all page object
@@ -16,7 +17,8 @@ class Scraper
     @crime_per_year = {}
   end
 
-  # counts the number of pages
+  # Function to count the number of pages
+  # Parameter page: first page scraped to find number of pages
   def get_num_of_pages(page)
     # counts the number of page buttons at bottom of page
     @number_of_pages = page.search('li.pager__item span.element-invisible').length
@@ -24,7 +26,8 @@ class Scraper
     @number_of_pages -= 4
   end
 
-  # get the link for each individual page
+  # Function to get the link for each individual page
+  # Parameter first_page_link: link to first page of crimes
   def create_link(first_page_link)
     (1..@number_of_pages).each do |i|
       # mechanize each page
@@ -32,13 +35,13 @@ class Scraper
     end
   end
 
-  # calls other methods to retrieve all data
+  # Function to call other methods to retrieve all data
   def collect_data
     get_all_years
     get_crimes_per_year
   end
 
-  # gets all the years that has crime recorded
+  # Function to get all the years that has crime recorded
   def get_all_years
     all_notices.each do |notice|
       # does not push the same year or nil
@@ -47,7 +50,7 @@ class Scraper
     @years.sort!
   end
 
-  # counts the number of crimes per year
+  # Function to count the number of crimes per year
   def get_crimes_per_year
     @years.each do |year|
       @crime_per_year[year] = 0
