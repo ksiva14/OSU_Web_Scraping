@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require '../lib/scraper'
+require './lib/scraper'
 require 'ruby2d'
 
 # Test fixture for Player Class

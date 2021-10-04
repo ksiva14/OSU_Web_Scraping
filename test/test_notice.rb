@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require '../lib/notice'
+require './lib/notice'
 require 'ruby2d'
 
 # Test fixture for Player Class

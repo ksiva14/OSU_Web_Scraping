@@ -98,7 +98,7 @@ class Graph
   end
 
   # get the time in 24 hour clock
-  def set_time(time)
+  def self.set_time(time)
     time_holder = []
     if time.to_s.include? ':'
       # eg: 11:54 am
@@ -130,11 +130,11 @@ class Graph
   end
 
   # sets the x & y for the graph
-  def get_data_points(graph, scrape)
+  def get_data_points(_graph, scrape)
     scrape.all_notices.each do |notice|
       # checks if time is string with all white spaces
       # checks if there is a date
-      @y << graph.set_time(notice.time) if !notice.date.nil? && !notice.time.nil?
+      @y << Graph.set_time(notice.time) if !notice.date.nil? && !notice.time.nil?
     end
     # let the oldest data be at front
     @y.reverse!
