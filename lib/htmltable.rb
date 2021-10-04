@@ -9,6 +9,7 @@ class Htmltable
     f.puts '  <head>'
     f.puts '    <title>Neighborhood Crime Around OSU</title>'
     f.puts '    <meta charset="utf-8" />'
+    f.puts '    <link rel="stylesheet" type="text/css" href="lib/globalstyle.css" />'
     f.puts '  </head>'
     f.puts '  <body>'
     create_table f, notices
@@ -19,13 +20,13 @@ class Htmltable
 
   # Create Table
   def create_table(f, notices)
+    f.puts '    <h1 class="title">Important Neighborhood Crime Information Around OSU</h1>'
     f.puts '    <table border="1">'
-    f.puts '    <caption><b>Important Neighborhood Crime Information Around OSU</b></caption>'
     f.puts '    <tr>'
-    f.puts '      <th>Date</th>'
-    f.puts '      <th>Location</th>'
-    f.puts '      <th>Time</th>'
-    f.puts '      <th>Additional Information</th>'
+    f.puts '      <th class="header"><h3>Date</h3></th>'
+    f.puts '      <th class="header"><h3>Location</h3></th>'
+    f.puts '      <th class="header time"><h3>Time</h3></th>'
+    f.puts '      <th class="header"><h3>Additional Information</h3></th>'
     f.puts '    </tr>'
     output_rows f, notices
     f.puts '    </table>'
@@ -47,10 +48,10 @@ class Htmltable
       end
 
       f.puts '    <tr>'
-      f.puts "      <td>#{notice.date}</td>"
-      f.puts "      <td>#{notice.location.join ' '}</td>"
-      f.puts "      <td>#{notice.time}</td>"
-      f.puts "      <td>#{notice.description}</td>"
+      f.puts "      <td class=\"data\">#{notice.date}</td>"
+      f.puts "      <td class=\"data location\">#{notice.location.join ' '}</td>"
+      f.puts "      <td class=\"data\">#{notice.time}</td>"
+      f.puts "      <td class=\"data description\">#{notice.description}</td>"
       f.puts '    </tr>'
     end
   end
