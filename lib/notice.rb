@@ -3,23 +3,22 @@ class Notice
   attr_reader :time, :date, :location, :description, :year
 
   def initialize(link)
+    @description = 'none'
     notice_page = Mechanize.new.get link
 
-    notice_paragraphs = notice_page.css("div[class='field__items']")[3].css('p')
-    @description = 'none'
-    notice_paragraphs.each do |i|
-      @description = i.text if i.text.include?('a.m.') || i.text.include?('p.m.')
-    end
-
+    retrieve_description notice_page
     retrieve_date
     retrieve_year
     retrieve_time
     retrieve_location
+  end
 
-    # puts '*****'
-    # puts "#{@date} --- #{@time}"
-    # puts @location
-    # puts '*****'
+  # retrieve the description of notice
+  def retrieve_description(notice_page)
+    notice_paragraphs = notice_page.css("div[class='field__items']")[3].css('p')
+    notice_paragraphs.each do |i|
+      @description = i.text if i.text.include?('a.m.') || i.text.include?('p.m.')
+    end
   end
 
   # retrieve the date of crime

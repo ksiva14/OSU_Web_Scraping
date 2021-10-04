@@ -25,15 +25,12 @@ puts 'All Data Retrieved.'
 
 # Graph for displaying crime time - creates a png of the graph
 puts 'Creating Graph...'
-crime_time_graph = Graph.new
-crime_time_graph.create_scatterplot scrape, './lib/graphs/crime_time.png'
-
-num_crimes_graph = Graph.new
-num_crimes_graph.create_bargraph scrape, './lib/graphs/num_crimes.png'
+# scatterplot for showing the time crimes usually occur
+Graph.new.create_scatterplot scrape, './lib/graphs/crime_time.png'
+# bar graph for showing the number of crimes each year
+Graph.new.create_bargraph scrape, './lib/graphs/num_crimes.png'
 puts 'Graph has been created.'
 
-f = File.new('./index.html', 'w')
-html = Htmltable.new
-
 # output html page after scraping data and creating graphs
-html.create_page f, scrape.all_notices
+file = File.new('./index.html', 'w')
+Htmltable.new.create_page file, scrape.all_notices
