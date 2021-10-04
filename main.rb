@@ -13,7 +13,6 @@ require 'gruff'
 
 link = 'https://dps.osu.edu/news?tag%5B15%5D=15'
 
-
 scrape = Scraper.new
 puts 'Retrieving Data...'
 # mechanize first page to start retriving data from website
@@ -28,15 +27,13 @@ puts 'All Data Retrieved.'
 puts 'Creating Graph...'
 crime_time_graph = Graph.new
 crime_time_graph.create_scatterplot crime_time_graph, scrape
-crime_time_graph.scatter_graph.write('crime_time.png')
 
 num_crimes_graph = Graph.new
 num_crimes_graph.create_bargraph scrape
 puts 'Graph has been created.'
 
-
-f = File.new("./table.html", "w")
+f = File.new('./table.html', 'w')
 html = Htmltable.new
 
-#output html page after scraping data and creating graphs
+# output html page after scraping data and creating graphs
 html.create_page f, scrape.all_notices

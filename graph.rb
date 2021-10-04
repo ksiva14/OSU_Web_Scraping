@@ -15,6 +15,7 @@ class Graph
     set_graph_properties
     set_axis_style scrape
     @scatter_graph.data('crime time', @x, @y)
+    @scatter_graph.write('crime_time.png')
   end
 
   def create_bargraph(scrape)
@@ -22,10 +23,10 @@ class Graph
     set_bar_graph_properties
     set_axis_style_bar_graph scrape
     get_bar_points scrape
-    @bar_graph.write "num_crimes.png"
+    @bar_graph.write 'num_crimes.png'
   end
 
-    # the look of the graph
+  # the look of the graph
   def set_bar_graph_properties
     @bar_graph.title = 'Number of Crimes Per Year at OSU'
     @bar_graph.hide_legend = true
@@ -42,26 +43,32 @@ class Graph
   end
 
   def get_bar_points(scrape)
-    scrape.crime_per_year.each_key do |year|
-      @bar_graph.data(year, scrape.crime_per_year[year], nil)
-    end
+    # scrape.crime_per_year.each_key do |year|
+    #   @bar_graph.data('year', year, scrape.crime_per_year)
+    # end
+    @bar_graph.data(scrape.years, scrape.crime_per_year.values)
   end
 
   # the look for the axis
   def set_axis_style_bar_graph(scrape)
-
     @bar_graph.maximum_value = 40
     @bar_graph.minimum_value = 0
     @bar_graph.y_axis_increment = 2
-    @bar_graph.x_axis_label = "Year of Crime"
-    @bar_graph.y_axis_label = "Number of Crimes"
+    @bar_graph.x_axis_label = 'Year of Crime'
+    @bar_graph.y_axis_label = 'Number of Crimes'
 
-    
+    # year as x-axis labels
+    tmp_label = {}
+    scrape.years.length.times do |i|
+      tmp_label[i] = scrape.years[i]
+    end
     @bar_graph.x_axis_increment = 1
+    @bar_graph.labels = tmp_label
 
-    @bar_graph.x_axis_label_format = lambda do |value|
-      puts "Hello #{scrape.years[value - 1]}"
-      format('%d', scrape.years[value - 1])
+    # bar values
+    @bar_graph.show_labels_for_bar_values = true
+    @bar_graph.label_formatting = lambda do |value|
+      value.to_i.to_s
     end
   end
 
@@ -117,6 +124,9 @@ class Graph
 
   # the look for the axis
   def set_axis_style(scrape)
+    @scatter_graph.x_axis_label = 'Year of Crime'
+    @scatter_graph.y_axis_label = 'Time of Crimes'
+
     # 24:00 format for y-axis
     @scatter_graph.y_axis_increment = 1
     @scatter_graph.y_axis_label_format = lambda do |value|
@@ -128,7 +138,6 @@ class Graph
     end
     # year as x-axis labels
     @scatter_graph.x_axis_increment = 1
-
     @scatter_graph.x_axis_label_format = lambda do |value|
       format('%d', scrape.years[value - 1])
     end
