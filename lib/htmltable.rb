@@ -1,5 +1,6 @@
-# class for html table
 require_relative 'scraper'
+
+# class for html table
 class Htmltable
   # creates header for html table
   def create_page(f, notices)
@@ -11,7 +12,8 @@ class Htmltable
     f.puts '  </head>'
     f.puts '  <body>'
     create_table f, notices
-    add_image f, 'crime_time.png', 'Hot Time for Crimes'
+    add_image f, 'lib/graphs/crime_time.png', 'Hot Time for Crimes'
+    add_image f, 'lib/graphs/num_crimes.png', 'Number of Crimes Each Year'
     create_footer f
   end
 
@@ -39,15 +41,17 @@ class Htmltable
   # puts all rows for table with information
   def output_rows(f, notices)
     notices.each do |notice|
-        #Only output crime notices information if all information is available
-        unless notice.date.nil? || (notice.location.nil? || notice.location.length == 0) || notice.time.nil? || notice.description.nil?
-            f.puts '    <tr>'
-            f.puts "      <td>#{notice.date}</td>"
-            f.puts "      <td>#{notice.location.join ' '}</td>"
-            f.puts "      <td>#{notice.time}</td>"
-            f.puts "      <td>#{notice.description}</td>"
-            f.puts '    </tr>'
-        end
+      # Only output crime notices information if all information is available
+      if notice.date.nil? || (notice.location.nil? || notice.location.length == 0) || notice.time.nil? || notice.description.nil?
+        next
+      end
+
+      f.puts '    <tr>'
+      f.puts "      <td>#{notice.date}</td>"
+      f.puts "      <td>#{notice.location.join ' '}</td>"
+      f.puts "      <td>#{notice.time}</td>"
+      f.puts "      <td>#{notice.description}</td>"
+      f.puts '    </tr>'
     end
   end
 

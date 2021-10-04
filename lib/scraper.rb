@@ -1,5 +1,6 @@
 require_relative 'notice'
 
+# class that interacts with the website
 class Scraper
   attr_reader :number_of_pages, :page_array, :all_notices, :years, :crime_per_year
 

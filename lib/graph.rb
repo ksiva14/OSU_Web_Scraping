@@ -1,6 +1,7 @@
-require_relative './notice'
-require_relative './page'
+require_relative 'notice'
+require_relative 'page'
 
+# class for creating graphs using Gruff
 class Graph
   attr_accessor :x, :y, :graph
 
