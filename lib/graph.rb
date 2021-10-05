@@ -121,11 +121,12 @@ class Graph
     end
 
     # seperate the hour
-    hour = 12
+    hour = 12 # 12pm
     if time.to_s.include? 'p.m.'
       hour = time_holder[0].to_i + 12 unless time_holder[0].to_i == 12
     else
       hour = time_holder[0].to_i
+      hour = 0 if time_holder[0].to_i == 12 # 12am
     end
 
     # seperate the minute
