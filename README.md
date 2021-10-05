@@ -11,9 +11,10 @@ Run
 ```
 bundle install 
 ```
-to install necessary gems for this project
-Alternatively, run these commands
-Make sure you have installed
+to install necessary gems for this project.
+
+Alternatively, run these commands:
+
 - ruby | [Course Website](http://web.cse.ohio-state.edu/~giles.25/3901/resources/vm-install.html) | [Official Website](https://www.ruby-lang.org/en/documentation/installation/)
 - [mechanize](https://www.rubydoc.info/gems/mechanize/Mechanize):
 ```
