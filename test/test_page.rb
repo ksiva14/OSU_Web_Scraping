@@ -1,10 +1,9 @@
 require 'minitest/autorun'
-require '../lib/page'
+require './lib/page'
 require 'mechanize'
 
 # Test fixture for Page Class
 class TestPage < Minitest::Test
-
   def setup
     @page = Page.new('https://dps.osu.edu/news', [])
   end
@@ -23,5 +22,4 @@ class TestPage < Minitest::Test
   def test_has_notice_links
     assert_respond_to @page, :notice_links
   end
-
 end

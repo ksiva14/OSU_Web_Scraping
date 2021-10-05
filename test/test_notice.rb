@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require '../lib/notice'
+require './lib/notice'
 require 'mechanize'
 
 # Test fixture for Notice Class
@@ -45,16 +45,17 @@ class TestNotice < Minitest::Test
 
   # Remembers location Attribute
   def test_location
-    assert_equal [['Indianola', 'Avenue'], ['Woodruff', 'Avenue']], @notice.location
+    assert_equal [%w[Indianola Avenue], %w[Woodruff Avenue]], @notice.location
   end
 
   # Remembers description Attribute
   def test_description
-    assert_equal 'On 9/26/2021, at approximately 3:18 a.m., three Ohio State students were walking southbound on Indianola Avenue, near Woodruff Avenue, when a black Honda Accord stopped next to them. Two males, reported to be between the ages of 17 and 21, produced handguns, and demanded the victims’ property. The suspects exited the vehicle to commit the robbery, then returned to the car and fled the area along with their driver. No injuries were reported.', @notice.description
+    assert_equal 'On 9/26/2021, at approximately 3:18 a.m., three Ohio State students were walking southbound on Indianola Avenue, near Woodruff Avenue, when a black Honda Accord stopped next to them. Two males, reported to be between the ages of 17 and 21, produced handguns, and demanded the victims’ property. The suspects exited the vehicle to commit the robbery, then returned to the car and fled the area along with their driver. No injuries were reported.',
+                 @notice.description
   end
-  
-  #def test_retrieve_description
-    #assert_equal 'On 9/26/2021, at approximately 3:18 a.m., three Ohio State students were walking southbound on Indianola Avenue, near Woodruff Avenue, when a black Honda Accord stopped next to them. Two males, reported to be between the ages of 17 and 21, produced handguns, and demanded the victims’ property. The suspects exited the vehicle to commit the robbery, then returned to the car and fled the area along with their driver. No injuries were reported.', Notice::retrieve_description('https://dps.osu.edu/news/2021/09/26/neighborhood-safety-notice-september-26-2021')
-   # assert_equal Notice.retrieve_date, '5'
-  #end
+
+  # def test_retrieve_description
+  # assert_equal 'On 9/26/2021, at approximately 3:18 a.m., three Ohio State students were walking southbound on Indianola Avenue, near Woodruff Avenue, when a black Honda Accord stopped next to them. Two males, reported to be between the ages of 17 and 21, produced handguns, and demanded the victims’ property. The suspects exited the vehicle to commit the robbery, then returned to the car and fled the area along with their driver. No injuries were reported.', Notice::retrieve_description('https://dps.osu.edu/news/2021/09/26/neighborhood-safety-notice-september-26-2021')
+  # assert_equal Notice.retrieve_date, '5'
+  # end
 end

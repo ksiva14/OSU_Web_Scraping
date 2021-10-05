@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require '../lib/scraper'
+require './lib/scraper'
 
 # Test fixture for Scraper Class
 class TestScraper < Minitest::Test
@@ -31,5 +31,4 @@ class TestScraper < Minitest::Test
   def test_has_crime_per_year
     assert_respond_to @scraper, :crime_per_year
   end
-
 end

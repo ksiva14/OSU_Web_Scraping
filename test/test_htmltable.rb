@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require '../lib/htmltable'
+require './lib/htmltable'
 require 'ruby2d'
 
 # Test fixture for Player Class

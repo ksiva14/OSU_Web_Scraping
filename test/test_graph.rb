@@ -48,6 +48,14 @@ class TestGraph < Minitest::Test
   end
 
   # boundary - 12am
+  def test_set_time_12am
+    time = '12 a.m.'
+    time_expected = 0
+    time_output = Graph.set_time time
+    assert_equal time_expected, time_output
+  end
+
+  # boundary - 12:00am
   def test_set_time_1200am
     time = '12:00 a.m.'
     time_expected = 0.0
