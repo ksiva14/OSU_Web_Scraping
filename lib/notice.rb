@@ -1,6 +1,7 @@
 # class for notice object
 class Notice
-  attr_reader :time, :date, :location, :description, :year
+  attr_reader :time, :date, :location, :year
+  attr_accessor :description
 
   # Constuctor Init
   # Parameter link: link to article

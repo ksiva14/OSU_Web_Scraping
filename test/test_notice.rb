@@ -58,4 +58,31 @@ class TestNotice < Minitest::Test
   # assert_equal 'On 9/26/2021, at approximately 3:18 a.m., three Ohio State students were walking southbound on Indianola Avenue, near Woodruff Avenue, when a black Honda Accord stopped next to them. Two males, reported to be between the ages of 17 and 21, produced handguns, and demanded the victims’ property. The suspects exited the vehicle to commit the robbery, then returned to the car and fled the area along with their driver. No injuries were reported.', Notice::retrieve_description('https://dps.osu.edu/news/2021/09/26/neighborhood-safety-notice-september-26-2021')
   # assert_equal Notice.retrieve_date, '5'
   # end
+
+  # normal input - 12am
+  def test_retrieve_date_12am
+    @notice.description = 'lalala 12 a.m. lalalsssa'
+    expected = '12 a.m.'
+    @notice.retrieve_time
+    result = @notice.time
+    assert_equal expected, result
+  end
+
+  # normal input - 12:59am
+  def test_retrieve_date_1259am
+    @notice.description = 'lalala 12:59 a.m. lalalsssa'
+    expected = '12:59 a.m.'
+    @notice.retrieve_time
+    result = @notice.time
+    assert_equal expected, result
+  end
+
+  # normal input - 11:59pm
+  def test_retrieve_date_1159pm
+    @notice.description = 'lalala 11:59 p.m. lalalsssa'
+    expected = '11:59 p.m.'
+    @notice.retrieve_time
+    result = @notice.time
+    assert_equal expected, result
+  end
 end
