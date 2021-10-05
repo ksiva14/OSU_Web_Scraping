@@ -7,6 +7,12 @@ This project is focused on scraping the OSU Department of Public Safety website 
 [Zheng Ji Tan](https://github.com/Just-ZJ), [Karthick Sivasubramanian](https://github.com/ksiva14), [Tyler Frantz](https://github.com/tylerfrantz), [Justin King](https://github.com/jking3019)
 
 ## Install
+Run 
+```
+bundle install 
+```
+to install necessary gems for this project
+Alternatively, run these commands
 Make sure you have installed
 - ruby | [Course Website](http://web.cse.ohio-state.edu/~giles.25/3901/resources/vm-install.html) | [Official Website](https://www.ruby-lang.org/en/documentation/installation/)
 - [mechanize](https://www.rubydoc.info/gems/mechanize/Mechanize):
@@ -21,7 +27,7 @@ gem install nokogiri
 
 - [gruff](https://www.rubydoc.info/github/topfunky/gruff):
 ```
-sudo apt-get install libmagickwand-devlibsdl2-ttf-dev
+sudo apt-get install libmagickwand-dev
 gem install gruff
 ```
 
