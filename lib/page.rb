@@ -1,3 +1,4 @@
+require_relative 'notice'
 # class for page object
 class Page
   attr_reader :page, :title, :notice_links
