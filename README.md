@@ -48,7 +48,7 @@ Make sure you have installed
 ```
 gem install minitest
 ```
-  *  To run the test cases, ensure that you are in the test folder and run:
+  *  To run the test cases, run the following commands:
 
     ruby test/test_graph.rb 
     ruby test/test_notice.rb 
