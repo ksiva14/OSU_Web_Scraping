@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require './lib/notice'
+require '../lib/notice'
 require 'mechanize'
 
 # Test fixture for Notice Class
@@ -54,13 +54,8 @@ class TestNotice < Minitest::Test
                  @notice.description
   end
 
-  # def test_retrieve_description
-  # assert_equal 'On 9/26/2021, at approximately 3:18 a.m., three Ohio State students were walking southbound on Indianola Avenue, near Woodruff Avenue, when a black Honda Accord stopped next to them. Two males, reported to be between the ages of 17 and 21, produced handguns, and demanded the victims’ property. The suspects exited the vehicle to commit the robbery, then returned to the car and fled the area along with their driver. No injuries were reported.', Notice::retrieve_description('https://dps.osu.edu/news/2021/09/26/neighborhood-safety-notice-september-26-2021')
-  # assert_equal Notice.retrieve_date, '5'
-  # end
-
-  # normal input - 12am
-  def test_retrieve_date_12am
+  # challenge case - 12am
+  def test_retrieve_time_12am
     @notice.description = 'lalala 12 a.m. lalalsssa'
     expected = '12 a.m.'
     @notice.retrieve_time
@@ -68,8 +63,17 @@ class TestNotice < Minitest::Test
     assert_equal expected, result
   end
 
+  # challenge case - 12pm
+  def test_retrieve_time_12pm
+    @notice.description = 'lalala 12 p.m. lalalsssa'
+    expected = '12 p.m.'
+    @notice.retrieve_time
+    result = @notice.time
+    assert_equal expected, result
+  end
+
   # normal input - 12:59am
-  def test_retrieve_date_1259am
+  def test_retrieve_time_1259am
     @notice.description = 'lalala 12:59 a.m. lalalsssa'
     expected = '12:59 a.m.'
     @notice.retrieve_time
@@ -78,11 +82,104 @@ class TestNotice < Minitest::Test
   end
 
   # normal input - 11:59pm
-  def test_retrieve_date_1159pm
+  def test_retrieve_time_1159pm
     @notice.description = 'lalala 11:59 p.m. lalalsssa'
     expected = '11:59 p.m.'
     @notice.retrieve_time
     result = @notice.time
     assert_equal expected, result
   end
+
+  # normal input - 10/10/20
+  def test_retrieve_date_10_10_20
+    @notice.description = 'lalala 10/10/20 lalalsssa'
+    expected = '10/10/20'
+    @notice.retrieve_date
+    result = @notice.date
+    assert_equal expected, result
+  end
+
+  # challenge case - 1/11/21
+  def test_retrieve_date_1_11_21
+    @notice.description = 'lalala 1/11/21 lalalsssa'
+    expected = '1/11/21'
+    @notice.retrieve_date
+    result = @notice.date
+    assert_equal expected, result
+  end
+
+  # challenge case - 5/1/19
+  def test_retrieve_date_5_1_19
+    @notice.description = 'lalala 5/1/19 lalalsssa'
+    expected = '5/1/19'
+    @notice.retrieve_date
+    result = @notice.date
+    assert_equal expected, result
+  end
+
+  # normal input - 12/12/2020
+  def test_retrieve_date_12_12_2020
+    @notice.description = 'lalala 12/12/2020 lalalsssa'
+    expected = '12/12/2020'
+    @notice.retrieve_date
+    result = @notice.date
+    assert_equal expected, result
+  end
+
+  # normal input - 12/12/2020
+  def test_retrieve_year_12_12_2020
+    @notice.description = 'lalala 12/12/2020 lalalsssa'
+    expected = 2020
+    @notice.retrieve_date
+    @notice.retrieve_year
+    result = @notice.year
+    assert_equal expected, result
+  end
+
+  # normal input - 12/12/20
+  def test_retrieve_year_12_12_20
+    @notice.description = 'lalala 12/12/20 lalalsssa'
+    expected = 2020
+    @notice.retrieve_date
+    @notice.retrieve_year
+    result = @notice.year
+    assert_equal expected, result
+  end
+
+  # normal input - Lane Avenue and High Street
+  def test_retrieve_location_two_streets
+    @notice.description = 'lalala Lane Avenue and High Street lalalsssa'
+    expected = [['Lane', 'Avenue'], ['High', 'Street']]
+    @notice.retrieve_location
+    result = @notice.location
+    assert_equal expected, result
+  end
+
+  # challenge case - Lane Ave and High St
+  def test_retrieve_location_two_streets_short_descriptors
+    @notice.description = 'lalala Lane Ave and High St lalalsssa'
+    expected = [['Lane', 'Ave'], ['High', 'St ']]
+    @notice.retrieve_location
+    result = @notice.location
+    assert_equal expected, result
+  end
+
+  # challenge case - Lane and 18th avenues
+  def test_retrieve_location_two_streets_together
+    @notice.description = 'lalala Lane and 18th avenues lalalsssa'
+    expected = ['Lane', '18th']
+    @notice.retrieve_location
+    result = @notice.location
+    assert_equal expected, result
+  end
+
+  # challenge case - Lane and High
+  def test_retrieve_location_two_streets_no_descriptors
+    @notice.description = 'lalala Lane and High lalalsssa'
+    expected = ['Lane', 'High']
+    @notice.retrieve_location
+    result = @notice.location
+    assert_equal expected, result
+  end
+
 end

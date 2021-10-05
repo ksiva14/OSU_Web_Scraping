@@ -1,6 +1,5 @@
 require 'minitest/autorun'
-require './lib/graph'
-require 'ruby2d'
+require '../lib/graph'
 
 # Test fixture for Graph Class
 class TestGraph < Minitest::Test
