@@ -11,13 +11,11 @@ Make sure you have installed
 - ruby | [Course Website](http://web.cse.ohio-state.edu/~giles.25/3901/resources/vm-install.html) | [Official Website](https://www.ruby-lang.org/en/documentation/installation/)
 - [mechanize](https://www.rubydoc.info/gems/mechanize/Mechanize):
 ```
-sudo apt install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
 gem install mechanize
 ```
 
 - [nokogiri](https://rubygems.org/gems/nokogiri):
 ```
-sudo apt install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
 gem install nokogiri
 ```
 
@@ -29,8 +27,11 @@ gem install gruff
 
 
 ## How to Use
-* run ruby main.rb
-* open index.html in an html viewer
+  *  To run the program, use the following command:
+
+    ruby main.rb
+
+A file named `index.html` will be created and can be opened in any web browser.
  
 ## Challenges Faced
 Many challenges were faced when creating this project. Trying to not flood OSU servers with requests was a big issue to work around. Formats for how streets were listed differed among articles, making it difficult to hardcode a way to scrape this data. Learning new gems like gruff proved time consuming. 
@@ -49,5 +50,8 @@ gem install minitest
 ```
   *  To run the test cases, ensure that you are in the test folder and run:
 
-    ruby test_cases.rb 
+    ruby test/test_graph.rb 
+    ruby test/test_notice.rb 
+    ruby test/test_page.rb 
+    ruby test/test_scraper.rb 
 
