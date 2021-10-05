@@ -1,3 +1,5 @@
+# Authors: Zheng Ji Tan, Tyler Frantz, Karthick Sivasubramanian, Justin King
+
 require 'mechanize'
 require 'nokogiri'
 require 'gruff'
