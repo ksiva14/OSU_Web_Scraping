@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require '../lib/notice'
+require './lib/notice'
 require 'mechanize'
 
 # Test fixture for Notice Class

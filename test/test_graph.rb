@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require '../lib/graph'
+require './lib/graph'
 
 # Test fixture for Graph Class
 class TestGraph < Minitest::Test
