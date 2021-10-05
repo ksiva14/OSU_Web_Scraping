@@ -7,11 +7,11 @@ This project is focused on scraping the OSU Department of Public Safety website 
 [Zheng Ji Tan](https://github.com/Just-ZJ), [Karthick Sivasubramanian](https://github.com/ksiva14), [Tyler Frantz](https://github.com/tylerfrantz), [Justin King](https://github.com/jking3019)
 
 ## Install
-Run 
+Run the following command to install the necessary gems for this project:
 ```
 bundle install 
 ```
-to install necessary gems for this project.
+
 
 Alternatively, run these commands:
 
