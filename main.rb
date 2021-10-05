@@ -7,10 +7,6 @@ require_relative './lib/page'
 require_relative './lib/scraper'
 require_relative './lib/htmltable'
 
-# to install
-# sudo apt-get install libmagickwand-dev
-# gem install gruff
-
 link = 'https://dps.osu.edu/news?tag%5B15%5D=15'
 
 scrape = Scraper.new
